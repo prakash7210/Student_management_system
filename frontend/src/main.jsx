@@ -2,7 +2,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "/api/students";
+function getApiUrl() {
+  const configuredUrl = import.meta.env.VITE_API_URL || "/api/students";
+  const trimmedUrl = configuredUrl.replace(/\/$/, "");
+
+  return trimmedUrl.endsWith("/api/students") ? trimmedUrl : `${trimmedUrl}/api/students`;
+}
+
+const API_URL = getApiUrl();
 
 const emptyForm = {
   name: "",
@@ -20,6 +27,10 @@ async function apiRequest(url, options) {
 
   if (text && contentType.includes("application/json")) {
     data = JSON.parse(text);
+  } else if (text.trim().toLowerCase().startsWith("<!doctype html")) {
+    throw new Error(
+      "The app received the frontend HTML instead of the backend API. Set VITE_API_URL to your backend /api/students URL and rebuild.",
+    );
   } else if (text) {
     data = { message: text };
   }

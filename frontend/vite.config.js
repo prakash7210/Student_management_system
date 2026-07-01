@@ -6,7 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target:
+          "http://student-management-alb-1419919567.eu-north-1.elb.amazonaws.com",
         changeOrigin: true,
       },
     },
