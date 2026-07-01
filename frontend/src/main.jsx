@@ -5,7 +5,6 @@ import "./styles.css";
 function getApiUrl() {
   const configuredUrl = import.meta.env.VITE_API_URL || "/api/students";
   const trimmedUrl = configuredUrl.replace(/\/$/, "");
-
   return trimmedUrl.endsWith("/api/students") ? trimmedUrl : `${trimmedUrl}/api/students`;
 }
 
@@ -149,7 +148,6 @@ function App() {
 
       setStudents((current) => current.filter((student) => student._id !== id));
       setMessage("Student deleted successfully.");
-
       if (editingId === id) {
         resetForm();
       }
@@ -158,6 +156,7 @@ function App() {
     }
   }
 
+  
   return (
     <main className="app">
       <section className="topbar">
