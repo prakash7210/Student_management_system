@@ -2,8 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
+const DEFAULT_API_URL =
+  "http://student-management-alb-1419919567.eu-north-1.elb.amazonaws.com/api/students";
+
 function getApiUrl() {
-  const configuredUrl = import.meta.env.VITE_API_URL || "/api/students";
+  const configuredUrl = import.meta.env.VITE_API_URL || DEFAULT_API_URL;
   const trimmedUrl = configuredUrl.replace(/\/$/, "");
   return trimmedUrl.endsWith("/api/students") ? trimmedUrl : `${trimmedUrl}/api/students`;
 }
